@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Danh mục</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.toggle("hidden");
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-blue-500 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Quản lý hệ thống</h1>
+            <nav>
+                <a href="#" class="text-white px-4">Trang chủ</a>
+                <a href="#" class="text-white px-4">Đăng xuất</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="flex">
+        <aside class="w-64 bg-gray-800 text-white h-screen">
+            <div class="p-4">
+                <h2 class="text-2xl font-bold mb-6">Menu</h2>
+                <ul>
+                    <!-- <li class="mb-4">
+            <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded">Quản lý sản phẩm</a>
+          </li> -->
+                    <li class="mb-4">
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded">Quản lý sản phẩm</a>
+                    </li>
+                    <li class="mb-4">
+                        <button onclick="toggleDropdown()"
+                            class="block py-2 px-4 w-full text-left hover:bg-gray-700 rounded">
+                            Quản lý Danh mục
+                        </button>
+                        <!-- Danh sách con (Thêm sản phẩm, Sửa sản phẩm) -->
+                        <ul id="dropdownMenu" class="ml-4 mt-2 hidden">
+                            <li class="mb-2">
+                                <a href="#" class="block py-2 px-4 hover:bg-gray-600 rounded">Thêm danh mục</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block py-2 px-4 hover:bg-gray-600 rounded">Sửa danh mục</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mb-4">
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded">Quản lý khách hàng</a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded">Báo cáo thống kê</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <div class="container mx-auto">
+                <div class="w-full  bg-white p-8 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Thêm Danh Mục</h2>
+
+                    <form action="#" method="POST">
+                        <div class="mb-4">
+                            <label for="productName" class="block text-gray-700 text-sm font-bold mb-2">ID</label>
+                            <input type="number" id="productName" name="productName" placeholder=""
+                                class="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:border-blue-300">
+                        </div>
+                        <!-- Tên danh mục -->
+                        <div class="mb-4">
+                            <label for="productName" class="block text-gray-700 text-sm font-bold mb-2">Tên danh mục</label>
+                            <input type="text" id="productName" name="productName" placeholder=""
+                                   class="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:border-blue-300">
+                          </div>
+                        <!-- Mô tả danh mục -->
+                        <div class="mb-4">
+                            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Mô tả danh
+                                mục</label>
+                            <textarea id="description" name="description" rows="4" placeholder=""
+                                class="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:border-blue-300"></textarea>
+                        </div>
+                        <!--select-->
+                        <div class="mb-4">
+                            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Trạng thái : 
+                                <select name="cars" id="cars" >
+                                    <option value="audi"></option>
+                                    <option value="volvo">Đang hoạt động</option>
+                                    <option value="saab">Dừng hoạt động</option>
+                                    <option value="opel">Tạm ẩn</option>
+                                  </select>
+                            </label>
+                        </div>
+                        <!-- Nút Lưu -->
+                        <div class="flex justify-center">
+                            <button type="submit"
+                                class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700">
+                                Thêm Danh Mục
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
