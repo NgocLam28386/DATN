@@ -15,6 +15,7 @@ const SliderComponent = () => {
         slidesToScroll: 1, // Số lượng slide cuộn mỗi lần
         autoplay: true, // Tự động chạy
         autoplaySpeed: 2000, // Tốc độ tự động chuyển (ms)
+        arrows: false, // Ẩn nút Next và Previous
     };
 
     return (
@@ -38,4 +39,4 @@ const SliderComponent = () => {
     );
 };
 
-export default SliderComponent;
+export default SliderComponent
