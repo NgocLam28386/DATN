@@ -23,3 +23,8 @@ let getCountStatusOrder = async (req, res) => {
         })
     }
 }
+module.exports = {
+    getCountCardStatistic: getCountCardStatistic,
+    getCountStatusOrder: getCountStatusOrder,
+
+}
