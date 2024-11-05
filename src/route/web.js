@@ -1,6 +1,7 @@
 import express from "express";
 import receiptController from '../controllers/receiptController';
 import shopCartController from '../controllers/shopCartController';
+import statisticController from '../controllers/statisticController';
 let router = express.Router();
 
 let initwebRoutes = (app) => {
@@ -20,6 +21,10 @@ let initwebRoutes = (app) => {
     router.get('/api/get-all-shopcart-by-userId', middlewareControllers.verifyTokenUser, shopCartController.getAllShopCartByUserId)
     router.delete('/api/delete-item-shopcart', middlewareControllers.verifyTokenUser, shopCartController.deleteItemShopCart)
     return app.use("/", router);
+
+      //=================API STATISTIC==============================//
+      router.get('/api/get-count-card-statistic', middlewareControllers.verifyTokenAdmin, statisticController.getCountCardStatistic)
+      router.get('/api/get-count-status-order', middlewareControllers.verifyTokenAdmin, statisticController.getCountStatusOrder)
 }
 
 module.exports = initwebRoutes;
