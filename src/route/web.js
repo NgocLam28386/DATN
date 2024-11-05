@@ -20,11 +20,13 @@ let initwebRoutes = (app) => {
     router.post('/api/add-shopcart', middlewareControllers.verifyTokenUser, shopCartController.addShopCart)
     router.get('/api/get-all-shopcart-by-userId', middlewareControllers.verifyTokenUser, shopCartController.getAllShopCartByUserId)
     router.delete('/api/delete-item-shopcart', middlewareControllers.verifyTokenUser, shopCartController.deleteItemShopCart)
+
+    //=================API STATISTIC==============================//
+    router.get('/api/get-count-card-statistic', middlewareControllers.verifyTokenAdmin, statisticController.getCountCardStatistic)
+    router.get('/api/get-count-status-order', middlewareControllers.verifyTokenAdmin, statisticController.getCountStatusOrder)
     return app.use("/", router);
 
-      //=================API STATISTIC==============================//
-      router.get('/api/get-count-card-statistic', middlewareControllers.verifyTokenAdmin, statisticController.getCountCardStatistic)
-      router.get('/api/get-count-status-order', middlewareControllers.verifyTokenAdmin, statisticController.getCountStatusOrder)
+      
 }
 
 module.exports = initwebRoutes;
