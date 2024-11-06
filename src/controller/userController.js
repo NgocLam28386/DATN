@@ -96,6 +96,18 @@ let handleSendVerifyEmailUser = async (req, res) => {
         })
     }
 }
+let handleVerifyEmailUser = async (req, res) => {
+    try {
+        let data = await userService.handleVerifyEmailUser(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 module.exports = {
     handleCreateNewUser: handleCreateNewUser,
     handleUpdateUser: handleUpdateUser,
@@ -104,5 +116,6 @@ module.exports = {
     handleChangePassword: handleChangePassword,
     getAllUser: getAllUser,
     getDetailUserById: getDetailUserById,
-    handleSendVerifyEmailUser: handleSendVerifyEmailUser
+    handleSendVerifyEmailUser: handleSendVerifyEmailUser,
+    handleVerifyEmailUser: handleVerifyEmailUser
 }
