@@ -48,18 +48,7 @@ let editAddressUser = async (req, res) => {
         })
     }
 }
-let getDetailAddressUserById = async (req, res) => {
-    try {
-        let data = await addressUserService.getDetailAddressUserById(req.query.id);
-        return res.status(200).json(data);
-    } catch (error) {
-        console.log(error)
-        return res.status(200).json({
-            errCode: -1,
-            errMessage: 'Error from server'
-        })
-    }
-}
+
 module.exports = {
     createNewAddressUser: createNewAddressUser,
     getAllAddressUserByUserId: getAllAddressUserByUserId,
