@@ -122,7 +122,202 @@ let getCountStatusOrder = (data) => {
         }
     })
 }
+let totalPriceDiscount = (price, discount) => {
+
+    if (discount.voucherData.typeVoucherOfVoucherData.typeVoucher === "percent") {
+
+        if (((price * discount.voucherData.typeVoucherOfVoucherData.value) / 100) > discount.voucherData.typeVoucherOfVoucherData.maxValue) {
+
+            return price - discount.voucherData.typeVoucherOfVoucherData.maxValue
+        } else {
+            return price - ((price * discount.voucherData.typeVoucherOfVoucherData.value) / 100)
+        }
+    } else {
+        return price - discount.voucherData.typeVoucherOfVoucherData.maxValue
+    }
+
+}
+function DaysOfMonth(thang, nam) {
+    var mon = parseInt(thang, 10);
+    var yar = parseInt(nam, 10);
+    switch (mon) {
+        case 2:
+            if ((yar % 4 == 0) && (yar % 400 != 0))
+                return 29;
+            else
+                return 28;
+            break;
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            return 31;
+            break;
+        default:
+            return 30;
+    }
+}
+let getStatisticByMonth = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.year) {
+                resolve({
+                    errCode: 1,
+                    data: 'Missing required paramenter !'
+                })
+
+            } else {
+                let orderProduct = await db.OrderProduct.findAll(
+                    {
+                        where: { statusId: 'S6' },
+                        include: [
+                            { model: db.TypeShip, as: 'typeShipData' },
+                            { model: db.Voucher, as: 'voucherData' },
+                            { model: db.Allcode, as: 'statusOrderData' },
+
+                        ],
+                        raw: true,
+                        nest: true
+                    }
+                )
+                for (let i = 0; i < orderProduct.length; i++) {
+                    orderProduct[i].orderDetail = await db.OrderDetail.findAll({ where: { orderId: orderProduct[i].id } })
+                    orderProduct[i].voucherData.typeVoucherOfVoucherData = await db.TypeVoucher.findOne({
+                        where: { id: orderProduct[i].voucherData.typeVoucherId }
+                    })
+                    let totalprice = 0
+                    for (let j = 0; j < orderProduct[i].orderDetail.length; j++) {
+                        totalprice = totalprice + (orderProduct[i].orderDetail[j].realPrice * orderProduct[i].orderDetail[j].quantity)
+                    }
+                    if (orderProduct[i].voucherId) {
+                        orderProduct[i].totalpriceProduct = totalPriceDiscount(totalprice, orderProduct[i]) + orderProduct[i].typeShipData.price
+                    } else {
+                        orderProduct[i].totalpriceProduct = totalprice + orderProduct[i].typeShipData.price
+                    }
+
+                }
+
+
+                let arrayMonthLable = []
+                let arrayMonthValue = []
+                for (let i = 1; i <= 12; i++) {
+                    arrayMonthLable.push("Th " + i)
+                    let price = 0
+                    for (let j = 0; j < orderProduct.length; j++) {
+
+                        if (moment(orderProduct[j].updatedAt).format('YYYY') === data.year && +moment(orderProduct[j].updatedAt).format('MM') === i) {
+                            price = price + orderProduct[j].totalpriceProduct
+                        }
+                    }
+                    arrayMonthValue.push(price)
+
+
+                }
+                resolve({
+                    errCode: 0,
+                    data: {
+                        arrayMonthLable,
+                        arrayMonthValue
+                    }
+
+                })
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+let getStatisticByDay = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.month && !data.year) {
+                resolve({
+                    errCode: 1,
+                    data: 'Missing required paramenter !'
+                })
+
+            } else {
+                let day = DaysOfMonth(data.month, data.year)
+                let orderProduct = await db.OrderProduct.findAll(
+                    {
+                        where: { statusId: 'S6' },
+                        include: [
+                            { model: db.TypeShip, as: 'typeShipData' },
+                            { model: db.Voucher, as: 'voucherData' },
+                            { model: db.Allcode, as: 'statusOrderData' },
+
+                        ],
+                        raw: true,
+                        nest: true
+                    }
+                )
+                for (let i = 0; i < orderProduct.length; i++) {
+                    orderProduct[i].orderDetail = await db.OrderDetail.findAll({ where: { orderId: orderProduct[i].id } })
+                    orderProduct[i].voucherData.typeVoucherOfVoucherData = await db.TypeVoucher.findOne({
+                        where: { id: orderProduct[i].voucherData.typeVoucherId }
+                    })
+                    let totalprice = 0
+                    for (let j = 0; j < orderProduct[i].orderDetail.length; j++) {
+                        totalprice = totalprice + (orderProduct[i].orderDetail[j].realPrice * orderProduct[i].orderDetail[j].quantity)
+                    }
+
+                    if (orderProduct[i].voucherId) {
+                        orderProduct[i].totalpriceProduct = totalPriceDiscount(totalprice, orderProduct[i]) + orderProduct[i].typeShipData.price
+                    } else {
+                        orderProduct[i].totalpriceProduct = totalprice + orderProduct[i].typeShipData.price
+                    }
+                }
+
+
+                let arrayDayLable = []
+                let arrayDayValue = []
+
+                for (let i = 1; i <= day; i++) {
+                    if (+moment(new Date()).format("DD") == i && data.year === moment(new Date()).format("YYYY")
+                        && data.month === moment(new Date()).format("M")
+                    ) {
+                        arrayDayLable.push("Today")
+                    }
+                    else {
+                        arrayDayLable.push(i)
+                    }
+
+                    let price = 0
+                    for (let j = 0; j < orderProduct.length; j++) {
+
+                        if (moment(orderProduct[j].updatedAt).format('YYYY') === data.year && moment(orderProduct[j].updatedAt).format('M') === data.month &&
+                            +moment(orderProduct[j].updatedAt).format('DD') === i
+                        ) {
+
+                            price = price + orderProduct[j].totalpriceProduct
+                        }
+                    }
+                    arrayDayValue.push(price)
+
+
+                }
+                resolve({
+                    errCode: 0,
+                    data: {
+                        arrayDayLable,
+                        arrayDayValue
+                    }
+
+                })
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     getCountCardStatistic: getCountCardStatistic,
     getCountStatusOrder: getCountStatusOrder,
+    getStatisticByMonth: getStatisticByMonth,
+    getStatisticByDay: getStatisticByDay,
 }

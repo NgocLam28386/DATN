@@ -23,8 +23,33 @@ let getCountStatusOrder = async (req, res) => {
         })
     }
 }
+let getStatisticByMonth = async (req, res) => {
+    try {
+        let data = await statisticService.getStatisticByMonth(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+let getStatisticByDay = async (req, res) => {
+    try {
+        let data = await statisticService.getStatisticByDay(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 module.exports = {
     getCountCardStatistic: getCountCardStatistic,
     getCountStatusOrder: getCountStatusOrder,
-
+    getStatisticByMonth: getStatisticByMonth,
+    getStatisticByDay: getStatisticByDay,
 }

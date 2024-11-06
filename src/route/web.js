@@ -24,6 +24,10 @@ let initwebRoutes = (app) => {
     //=================API STATISTIC==============================//
     router.get('/api/get-count-card-statistic', middlewareControllers.verifyTokenAdmin, statisticController.getCountCardStatistic)
     router.get('/api/get-count-status-order', middlewareControllers.verifyTokenAdmin, statisticController.getCountStatusOrder)
+    router.get('/api/get-statistic-by-month', middlewareControllers.verifyTokenAdmin, statisticController.getStatisticByMonth)
+    router.get('/api/get-statistic-by-day', middlewareControllers.verifyTokenAdmin, statisticController.getStatisticByDay)
+
+    
     return app.use("/", router);
 
       
