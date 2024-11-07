@@ -96,6 +96,18 @@ let getAllProductDetailById = async (req, res) => {
         })
     }
 }
+let getAllProductDetailImageById = async (req, res) => {
+    try {
+        let data = await productService.getAllProductDetailImageById(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     createNewProduct: createNewProduct,
@@ -106,6 +118,7 @@ module.exports = {
     getDetailProductById: getDetailProductById,
     updateProduct: updateProduct,
     getAllProductDetailById: getAllProductDetailById,
+    getAllProductDetailImageById: getAllProductDetailImageById,
 
 
 }
