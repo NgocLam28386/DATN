@@ -71,11 +71,24 @@ let getSelectTypeVoucher = async (req, res) => {
         })
     }
 }
+let createNewVoucher = async (req, res) => {
+    try {
+        let data = await voucherService.createNewVoucher(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 module.exports = {
     createNewTypeVoucher: createNewTypeVoucher,
     getDetailTypeVoucherById: getDetailTypeVoucherById,
     getAllTypeVoucher: getAllTypeVoucher,
     updateTypeVoucher: updateTypeVoucher,
     deleteTypeVoucher: deleteTypeVoucher,
-    getSelectTypeVoucher: getSelectTypeVoucher
+    getSelectTypeVoucher: getSelectTypeVoucher,
+    createNewVoucher: createNewVoucher
 }
