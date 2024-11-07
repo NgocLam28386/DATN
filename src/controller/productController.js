@@ -48,10 +48,77 @@ let UnactiveProduct = async (req, res) => {
         })
     }
 }
+let ActiveProduct = async (req, res) => {
+    try {
+        let data = await productService.ActiveProduct(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+let getDetailProductById = async (req, res) => {
+    try {
+        let data = await productService.getDetailProductById(req.query.id);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+let updateProduct = async (req, res) => {
+    try {
+        let data = await productService.updateProduct(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+let getAllProductDetailById = async (req, res) => {
+    try {
+        let data = await productService.getAllProductDetailById(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+let getAllProductDetailImageById = async (req, res) => {
+    try {
+        let data = await productService.getAllProductDetailImageById(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     createNewProduct: createNewProduct,
     getAllProductAdmin: getAllProductAdmin,
     getAllProductUser: getAllProductUser,
     UnactiveProduct: UnactiveProduct,
+    ActiveProduct: ActiveProduct,
+    getDetailProductById: getDetailProductById,
+    updateProduct: updateProduct,
+    getAllProductDetailById: getAllProductDetailById,
+    getAllProductDetailImageById: getAllProductDetailImageById,
+
+
 }
