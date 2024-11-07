@@ -143,6 +143,18 @@ let saveUserVoucher = async (req, res) => {
         })
     }
 }
+let getAllVoucherByUserId = async (req, res) => {
+    try {
+        let data = await voucherService.getAllVoucherByUserId(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 module.exports = {
     createNewTypeVoucher: createNewTypeVoucher,
     getDetailTypeVoucherById: getDetailTypeVoucherById,
@@ -155,5 +167,6 @@ module.exports = {
     getAllVoucher: getAllVoucher,
     updateVoucher: updateVoucher,
     deleteVoucher: deleteVoucher,
-    saveUserVoucher: saveUserVoucher
+    saveUserVoucher: saveUserVoucher,
+    getAllVoucherByUserId: getAllVoucherByUserId
 }
