@@ -1,4 +1,6 @@
 import voucherService from '../services/voucherService';
+
+//========================TYPE VOUCHER=====================//
 let createNewTypeVoucher = async (req, res) => {
     try {
         let data = await voucherService.createNewTypeVoucher(req.body);
@@ -71,6 +73,7 @@ let getSelectTypeVoucher = async (req, res) => {
         })
     }
 }
+//==========================VOUCHER=====================//
 let createNewVoucher = async (req, res) => {
     try {
         let data = await voucherService.createNewVoucher(req.body);
@@ -107,6 +110,7 @@ let getAllVoucher = async (req, res) => {
         })
     }
 }
+
 let updateVoucher = async (req, res) => {
     try {
         let data = await voucherService.updateVoucher(req.body);
@@ -161,12 +165,12 @@ module.exports = {
     getAllTypeVoucher: getAllTypeVoucher,
     updateTypeVoucher: updateTypeVoucher,
     deleteTypeVoucher: deleteTypeVoucher,
-    getSelectTypeVoucher: getSelectTypeVoucher,
     createNewVoucher: createNewVoucher,
     getDetailVoucherById: getDetailVoucherById,
     getAllVoucher: getAllVoucher,
     updateVoucher: updateVoucher,
     deleteVoucher: deleteVoucher,
+    getSelectTypeVoucher: getSelectTypeVoucher,
     saveUserVoucher: saveUserVoucher,
     getAllVoucherByUserId: getAllVoucherByUserId
 }
