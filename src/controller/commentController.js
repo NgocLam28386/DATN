@@ -63,6 +63,19 @@ let createNewComment = async (req, res) => {
         })
     }
 }
+let getAllCommentByBlogId = async (req, res) => {
+    try {
+
+        let data = await commentService.getAllCommentByBlogId(req.query.id);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     createNewReview: createNewReview,
@@ -70,5 +83,6 @@ module.exports = {
     ReplyReview: ReplyReview,
     deleteReview: deleteReview,
     createNewComment:createNewComment,
+    getAllCommentByBlogId:getAllCommentByBlogId,
 
 }
