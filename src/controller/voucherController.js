@@ -119,6 +119,18 @@ let updateVoucher = async (req, res) => {
         })
     }
 }
+let deleteVoucher = async (req, res) => {
+    try {
+        let data = await voucherService.deleteVoucher(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 module.exports = {
     createNewTypeVoucher: createNewTypeVoucher,
     getDetailTypeVoucherById: getDetailTypeVoucherById,
@@ -129,5 +141,6 @@ module.exports = {
     createNewVoucher: createNewVoucher,
     getDetailVoucherById: getDetailVoucherById,
     getAllVoucher: getAllVoucher,
-    updateVoucher: updateVoucher
+    updateVoucher: updateVoucher,
+    deleteVoucher: deleteVoucher
 }
