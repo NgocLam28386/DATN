@@ -503,6 +503,74 @@ let getStatisticProfit = (data) => {
         }
     })
 }
+let getStatisticStockProduct = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let objectFilter = {
+
+                include: [
+                    { model: db.Allcode, as: 'sizeData', attributes: ['value', 'code'] },
+
+                ],
+                raw: true,
+                nest: true
+            }
+            if (data.limit && data.offset) {
+                objectFilter.limit = +data.limit
+                objectFilter.offset = +data.offset
+            }
+
+
+            let res = await db.ProductDetailSize.findAndCountAll(objectFilter)
+            for (let i = 0; i < res.rows.length; i++) {
+                let receiptDetail = await db.ReceiptDetail.findAll({ where: { productDetailSizeId: res.rows[i].id } })
+                let orderDetail = await db.OrderDetail.findAll({ where: { productId: res.rows[i].id } })
+                let quantity = 0
+                res.rows[i].productDetaildData = await db.ProductDetail.findOne({
+                    where: { id: res.rows[i].productdetailId }
+                })
+                res.rows[i].productdData = await db.Product.findOne({
+                    where: { id: res.rows[i].productDetaildData.productId },
+                    include: [
+                        { model: db.Allcode, as: 'brandData', attributes: ['value', 'code'] },
+                        { model: db.Allcode, as: 'categoryData', attributes: ['value', 'code'] },
+                        { model: db.Allcode, as: 'statusData', attributes: ['value', 'code'] },
+                    ],
+                    raw: true,
+                    nest: true
+                })
+                for (let j = 0; j < receiptDetail.length; j++) {
+                    quantity = quantity + receiptDetail[j].quantity
+                }
+                for (let k = 0; k < orderDetail.length; k++) {
+                    let order = await db.OrderProduct.findOne({ where: { id: orderDetail[k].orderId } })
+                    if (order.statusId != 'S7') {
+
+                        quantity = quantity - orderDetail[k].quantity
+                    }
+
+                }
+
+
+
+                res.rows[i].stock = quantity
+
+
+            }
+
+            resolve({
+                errCode: 0,
+                data: res.rows,
+                count: res.count
+
+            })
+
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     getCountCardStatistic: getCountCardStatistic,
     getCountStatusOrder: getCountStatusOrder,
@@ -510,4 +578,5 @@ module.exports = {
     getStatisticByDay: getStatisticByDay,
     getStatisticOverturn: getStatisticOverturn,
     getStatisticProfit: getStatisticProfit,
+    getStatisticStockProduct: getStatisticStockProduct
 }
