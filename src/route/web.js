@@ -2,6 +2,7 @@ import express from "express";
 import receiptController from '../controllers/receiptController';
 import shopCartController from '../controllers/shopCartController';
 import statisticController from '../controllers/statisticController';
+import supplierController from '../controllers/supplierController';
 let router = express.Router();
 
 let initwebRoutes = (app) => {
@@ -29,7 +30,12 @@ let initwebRoutes = (app) => {
     router.get('/api/get-statistic-overturn', middlewareControllers.verifyTokenAdmin, statisticController.getStatisticOverturn)
     router.get('/api/get-statistic-profit', middlewareControllers.verifyTokenAdmin, statisticController.getStatisticProfit)
     router.get('/api/get-statistic-stock-product', middlewareControllers.verifyTokenAdmin, statisticController.getStatisticStockProduct)
+
+      //=================API SUPPLIER================================//
+      router.post('/api/create-new-supplier', middlewareControllers.verifyTokenAdmin, supplierController.createNewSupplier)
     return app.use("/", router);
+
+
 
       
 }

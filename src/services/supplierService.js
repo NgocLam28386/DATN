@@ -1,4 +1,4 @@
-mport db from "../models/index";
+import db from "../models/index";
 require('dotenv').config();
 const { Op } = require("sequelize");
 
