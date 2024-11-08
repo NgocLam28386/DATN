@@ -401,10 +401,113 @@ let getStatisticOverturn = (data) => {
         }
     })
 }
+let getStatisticProfit = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.oneDate && !data.twoDate) {
+                resolve({
+                    errCode: 1,
+                    data: 'Missing required paramenter !'
+                })
+
+            } else {
+
+                let orderProduct = await db.OrderProduct.findAll(
+                    {
+                        where: { statusId: 'S6' },
+                        include: [
+                            { model: db.TypeShip, as: 'typeShipData' },
+                            { model: db.Voucher, as: 'voucherData' },
+                            { model: db.Allcode, as: 'statusOrderData' },
+
+                        ],
+                        raw: true,
+                        nest: true
+                    }
+                )
+
+                for (let i = 0; i < orderProduct.length; i++) {
+                    orderProduct[i].orderDetail = await db.OrderDetail.findAll({ where: { orderId: orderProduct[i].id } })
+                    orderProduct[i].voucherData.typeVoucherOfVoucherData = await db.TypeVoucher.findOne({
+                        where: { id: orderProduct[i].voucherData.typeVoucherId }
+                    })
+                    let totalprice = 0
+                    let importPrice = 0
+                    for (let j = 0; j < orderProduct[i].orderDetail.length; j++) {
+                        let receiptDetail = await db.ReceiptDetail.findAll({ where: { productDetailSizeId: orderProduct[i].orderDetail[j].productId } })
+                        let avgPrice = 0
+                        let avgQuantity = 0
+                        for (let k = 0; k < receiptDetail.length; k++) {
+                            avgPrice = avgPrice + (receiptDetail[k].quantity * receiptDetail[k].price)
+                            avgQuantity = avgQuantity + receiptDetail[k].quantity
+                        }
+                        orderProduct[i].orderDetail[j].importPrice = Math.round((avgPrice / avgQuantity))
+                        importPrice = importPrice + (Math.round((avgPrice / avgQuantity)) * orderProduct[i].orderDetail[j].quantity)
+                        totalprice = totalprice + (orderProduct[i].orderDetail[j].realPrice * orderProduct[i].orderDetail[j].quantity)
+                    }
+                    orderProduct[i].importPrice = importPrice
+                    if (orderProduct[i].voucherId) {
+                        orderProduct[i].totalpriceProduct = totalPriceDiscount(totalprice, orderProduct[i]) + orderProduct[i].typeShipData.price
+                        orderProduct[i].profitPrice = totalPriceDiscount(totalprice, orderProduct[i]) + orderProduct[i].typeShipData.price - importPrice
+
+                    } else {
+                        orderProduct[i].totalpriceProduct = totalprice + orderProduct[i].typeShipData.price
+                        orderProduct[i].profitPrice = (totalprice + orderProduct[i].typeShipData.price) - importPrice
+                    }
+
+                }
+
+                orderProduct = orderProduct.filter(item => {
+
+                    if (data.type == "day") {
+                        let updatedAt = moment.utc(item.updatedAt).local().format('DD/MM/YYYY').split('/')
+                        updatedAt = Number(updatedAt[2] + updatedAt[1] + updatedAt[0])
+
+                        let twoDate = moment(data.twoDate).format("DD/MM/YYYY").split('/')
+                        twoDate = Number(twoDate[2] + twoDate[1] + twoDate[0])
+                        let oneDate = moment(data.oneDate).format("DD/MM/YYYY").split('/')
+                        oneDate = Number(oneDate[2] + oneDate[1] + oneDate[0])
+
+                        if ((updatedAt >= oneDate) && (updatedAt <= twoDate)) {
+
+                            return true
+                        }
+                    }
+                    else if (data.type == "month") {
+                        let updatedAtMonth = moment.utc(item.updatedAt).local().format('M')
+                        let updatedAtYear = moment.utc(item.updatedAt).local().format('YYYY')
+                        if (moment(data.oneDate).format('M') == updatedAtMonth && moment(data.oneDate).format('YYYY') == updatedAtYear) {
+
+                            return true
+                        }
+
+                    } else {
+                        let updatedAtYear = moment.utc(item.updatedAt).local().format('YYYY')
+                        if (moment(data.oneDate).format('YYYY') == updatedAtYear) {
+
+                            return true
+                        }
+                    }
+
+                })
+
+                resolve({
+                    errCode: 0,
+                    data: orderProduct
+
+                })
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     getCountCardStatistic: getCountCardStatistic,
     getCountStatusOrder: getCountStatusOrder,
     getStatisticByMonth: getStatisticByMonth,
     getStatisticByDay: getStatisticByDay,
     getStatisticOverturn: getStatisticOverturn,
+    getStatisticProfit: getStatisticProfit,
 }
