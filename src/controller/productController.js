@@ -120,6 +120,18 @@ let createNewProductDetail = async (req, res) => {
         })
     }
 }
+let updateProductDetail = async (req, res) => {
+    try {
+        let data = await productService.updateProductDetail(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     createNewProduct: createNewProduct,
@@ -132,6 +144,6 @@ module.exports = {
     getAllProductDetailById: getAllProductDetailById,
     getAllProductDetailImageById: getAllProductDetailImageById,
     createNewProductDetail: createNewProductDetail,
-
+    updateProductDetail: updateProductDetail,
 
 }
