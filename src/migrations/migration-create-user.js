@@ -35,6 +35,15 @@ module.exports = {
             image: {
                 type: Sequelize.BLOB('long')
             },
+            dob: {
+                type: Sequelize.STRING
+            },
+            roleId: {
+                type: Sequelize.STRING
+            },
+            statusId: {
+                type: Sequelize.STRING
+            },
         });
     },
     down: async (queryInterface, Sequelize) => {
