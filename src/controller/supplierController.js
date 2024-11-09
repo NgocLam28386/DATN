@@ -12,6 +12,32 @@ let createNewSupplier = async (req, res) => {
         })
     }
 }
+let getDetailSupplierById = async (req, res) => {
+    try {
+        let data = await supplierService.getDetailSupplierById(req.query.id);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+let getAllSupplier = async (req, res) => {
+    try {
+        let data = await supplierService.getAllSupplier(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 module.exports = {
     createNewSupplier:createNewSupplier,
+    getDetailSupplierById:getDetailSupplierById,
+    getAllSupplier:getAllSupplier,
 }
