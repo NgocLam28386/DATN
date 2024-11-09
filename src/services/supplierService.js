@@ -74,8 +74,71 @@ let getAllSupplier = (data) => {
         }
     })
 }
+let updateSupplier = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.id ||!data.name || !data.address || !data.phonenumber || !data.email) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter !'
+                })
+            } else {
+                let supplier = await db.Supplier.findOne({
+                    where: { id: data.id },
+                    raw: false
+                })
+                if (supplier) {
+                    supplier.name = data.name;
+                    supplier.address = data.address;
+                    supplier.phonenumber = data.phonenumber;
+                    supplier.email = data.email;
+                  
+
+                    await supplier.save()
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'ok'
+                    })
+                }
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+let deleteSupplier = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.id) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter !'
+                })
+            } else {
+                let supplier = await db.Supplier.findOne({
+                    where: { id: data.id }
+                })
+                if (supplier) {
+                    await db.Supplier.destroy({
+                        where: { id: data.id }
+                    })
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'ok'
+                    })
+                }
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     createNewSupplier: createNewSupplier,
     getDetailSupplierById:getDetailSupplierById,
     getAllSupplier:getAllSupplier,
+    updateSupplier:updateSupplier,
+    deleteSupplier:deleteSupplier
 }
