@@ -23,6 +23,12 @@ module.exports = {
             lastName: {
                 type: Sequelize.STRING
             },
+            address: {
+                type: Sequelize.STRING
+            },
+            genderId: {
+                type: Sequelize.STRING
+            },
         });
     },
     down: async (queryInterface, Sequelize) => {
