@@ -35,6 +35,8 @@ let initwebRoutes = (app) => {
       router.post('/api/create-new-supplier', middlewareControllers.verifyTokenAdmin, supplierController.createNewSupplier)
       router.get('/api/get-detail-supplier', supplierController.getDetailSupplierById)
       router.get('/api/get-all-supplier', supplierController.getAllSupplier)
+      router.put('/api/update-supplier', middlewareControllers.verifyTokenAdmin, supplierController.updateSupplier)
+      router.delete('/api/delete-supplier', middlewareControllers.verifyTokenAdmin, supplierController.deleteSupplier)
     return app.use("/", router);
 
 
