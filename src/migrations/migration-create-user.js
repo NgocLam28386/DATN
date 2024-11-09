@@ -44,6 +44,20 @@ module.exports = {
             statusId: {
                 type: Sequelize.STRING
             },
+            isActiveEmail: {
+                type: Sequelize.BOOLEAN
+            },
+            usertoken: {
+                type: Sequelize.STRING
+            },
+            createdAt: {
+                allowNull: false,
+                type: Sequelize.DATE
+            },
+            updatedAt: {
+                allowNull: false,
+                type: Sequelize.DATE
+            }
         });
     },
     down: async (queryInterface, Sequelize) => {
