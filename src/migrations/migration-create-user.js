@@ -29,6 +29,12 @@ module.exports = {
             genderId: {
                 type: Sequelize.STRING
             },
+            phonenumber: {
+                type: Sequelize.STRING
+            },
+            image: {
+                type: Sequelize.BLOB('long')
+            },
         });
     },
     down: async (queryInterface, Sequelize) => {
