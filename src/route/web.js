@@ -33,6 +33,8 @@ let initwebRoutes = (app) => {
 
       //=================API SUPPLIER================================//
       router.post('/api/create-new-supplier', middlewareControllers.verifyTokenAdmin, supplierController.createNewSupplier)
+      router.get('/api/get-detail-supplier', supplierController.getDetailSupplierById)
+      router.get('/api/get-all-supplier', supplierController.getAllSupplier)
     return app.use("/", router);
 
 
