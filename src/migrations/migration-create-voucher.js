@@ -16,6 +16,12 @@ module.exports = {
             },
             toDate: {
                 type: Sequelize.STRING
+            },
+            typeVoucherId: {
+                type: Sequelize.INTEGER
+            },
+            amount: {
+                type: Sequelize.INTEGER
             }
         });
     },
