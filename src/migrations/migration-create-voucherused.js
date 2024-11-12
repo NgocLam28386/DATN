@@ -15,7 +15,17 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
 
-            }
+            },
+            userId: {
+
+                allowNull: false,
+                type: Sequelize.INTEGER
+            },
+            status: {
+                allowNull: false,
+                type: Sequelize.INTEGER,
+                defaultValue: 0
+            },
         });
     },
     down: async (queryInterface, Sequelize) => {
