@@ -192,6 +192,18 @@ let deleteProductDetailImage = async (req, res) => {
         })
     }
 }
+let deleteProductDetail = async (req, res) => {
+    try {
+        let data = await productService.deleteProductDetail(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     createNewProduct: createNewProduct,
@@ -210,6 +222,6 @@ module.exports = {
     getDetailProductImageById: getDetailProductImageById,
     updateProductDetailImage: updateProductDetailImage,
     deleteProductDetailImage: deleteProductDetailImage,
-
+    deleteProductDetail: deleteProductDetail,
 
 }
