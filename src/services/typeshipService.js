@@ -47,7 +47,32 @@ let getDetailTypeshipById = (id) => {
         }
     })
 }
+let getAllTypeship = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let objectFilter = {}
+            if (data.limit && data.offset) {
+                objectFilter.limit = +data.limit
+                objectFilter.offset = +data.offset
+            }
+            if(data.keyword !=='') objectFilter.where = {...objectFilter.where, type: {[Op.substring]: data.keyword  } }
+            let res = await db.TypeShip.findAndCountAll(objectFilter)
+
+            resolve({
+                errCode: 0,
+                data: res.rows,
+                count: res.count
+            })
+
+
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     createNewTypeShip: createNewTypeShip,
-    getDetailTypeshipById: getDetailTypeshipById
+    getDetailTypeshipById: getDetailTypeshipById,
+    getAllTypeship: getAllTypeship
 }
