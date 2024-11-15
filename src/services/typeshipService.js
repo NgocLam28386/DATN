@@ -25,7 +25,29 @@ let createNewTypeShip = (data) => {
         }
     })
 }
-
+let getDetailTypeshipById = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!id) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter !'
+                })
+            } else {
+                let res = await db.TypeShip.findOne({
+                    where: { id: id },
+                })
+                resolve({
+                    errCode: 0,
+                    data: res
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     createNewTypeShip: createNewTypeShip,
+    getDetailTypeshipById: getDetailTypeshipById
 }
