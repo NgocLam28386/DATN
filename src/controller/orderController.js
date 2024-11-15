@@ -84,6 +84,18 @@ let paymentOrderSuccess = async (req, res) => {
         })
     }
 }
+let paymentOrderVnpaySuccess = async (req, res) => {
+    try {
+        let data = await orderService.paymentOrderVnpaySuccess(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     createNewOrder: createNewOrder,
@@ -93,6 +105,5 @@ module.exports = {
     getAllOrdersByUser: getAllOrdersByUser,
     paymentOrder: paymentOrder,
     paymentOrderSuccess: paymentOrderSuccess,
-
-
+    paymentOrderVnpaySuccess: paymentOrderVnpaySuccess,
 }
