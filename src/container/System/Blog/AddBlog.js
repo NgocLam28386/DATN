@@ -1,21 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import {
-    createNewBlogrService,
-    getDetailBlogByIdService,
-    updateBlogService,
-} from "../../../services/userService";
-import CommonUtils from "../../../utils/CommonUtils";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
-import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import moment from "moment";
-import { useFetchAllcode } from "../../customize/fetch";
-import MarkdownIt from "markdown-it";
-import MdEditor from "react-markdown-editor-lite";
-import "react-markdown-editor-lite/lib/index.css";
+
 const AddBlog = (props) => {
     const mdParser = new MarkdownIt();
     const { id } = useParams();
