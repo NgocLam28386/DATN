@@ -288,6 +288,18 @@ let getProductNew = async (req, res) => {
         })
     }
 }
+let getProductShopCart = async (req, res) => {
+    try {
+        let data = await productService.getProductShopCart(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     createNewProduct: createNewProduct,
@@ -314,5 +326,7 @@ module.exports = {
     deleteProductDetailSize: deleteProductDetailSize,
     getProductFeature: getProductFeature,
     getProductNew: getProductNew,
+    getProductShopCart: getProductShopCart,
+
 
 }
