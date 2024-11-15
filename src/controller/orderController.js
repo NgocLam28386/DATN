@@ -108,6 +108,18 @@ let confirmOrder = async (req, res) => {
         })
     }
 }
+let getAllOrdersByShipper = async (req, res) => {
+    try {
+        let data = await orderService.getAllOrdersByShipper(req.query);
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     createNewOrder: createNewOrder,
@@ -119,5 +131,7 @@ module.exports = {
     paymentOrderSuccess: paymentOrderSuccess,
     paymentOrderVnpaySuccess: paymentOrderVnpaySuccess,
     confirmOrder: confirmOrder,
+    getAllOrdersByShipper: getAllOrdersByShipper,
+
 
 }
