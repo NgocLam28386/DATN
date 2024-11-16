@@ -71,8 +71,38 @@ let getAllTypeship = (data) => {
         }
     })
 }
+let updateTypeship = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.id || !data.type || !data.price) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter !'
+                })
+            } else {
+                let typeship = await db.TypeShip.findOne({
+                    where: { id: data.id },
+                    raw: false
+                })
+                if (typeship) {
+                    typeship.type = data.type;
+                    typeship.price = data.price;
+                    await typeship.save()
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'ok'
+                    })
+                }
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     createNewTypeShip: createNewTypeShip,
     getDetailTypeshipById: getDetailTypeshipById,
-    getAllTypeship: getAllTypeship
+    getAllTypeship: getAllTypeship,
+    updateTypeship: updateTypeship
 }
