@@ -100,9 +100,38 @@ let updateTypeship = (data) => {
         }
     })
 }
+let deleteTypeship = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.id) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter !'
+                })
+            } else {
+                let typeship = await db.TypeShip.findOne({
+                    where: { id: data.id }
+                })
+                if (typeship) {
+                    await db.TypeShip.destroy({
+                        where: { id: data.id }
+                    })
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'ok'
+                    })
+                }
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports = {
     createNewTypeShip: createNewTypeShip,
     getDetailTypeshipById: getDetailTypeshipById,
     getAllTypeship: getAllTypeship,
-    updateTypeship: updateTypeship
+    updateTypeship: updateTypeship,
+    deleteTypeship: deleteTypeship
 }
