@@ -72,7 +72,7 @@ const Profit = (props) => {
                     <form>
                         <div className="form-row">
                             <div className="form-group col-md-2">
-                                <label htmlFor="inputZip">Loại thống kê</label>
+                                <label htmlFor="inputZip">Loại thống kê.</label>
                                 <select value={type} name="type" onChange={(event) => settype(event.target.value)} id="inputState" className="form-control">
                                     <option value="day">Ngày</option>
                                     <option value="month">Tháng</option>
