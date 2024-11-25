@@ -59,7 +59,8 @@ function InfoDetailProduct(props) {
                 userId: props.userId,
                 productdetailsizeId: activeLinkId,
                 quantity: quantityProduct,
-            }))
+            }));
+            toast.success("Sản phẩm đã được thêm vào giỏ hàng!");
         } else {
             toast.error("Đăng nhập để thêm vào giỏ hàng")
         }

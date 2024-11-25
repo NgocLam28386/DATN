@@ -451,4 +451,4 @@ function OrderHomePage(props) {
     );
 }
 
-export default OrderHomePage;
+export default OrderHomePage
