@@ -5,6 +5,7 @@ import { PAGINATION } from '../../utils/constant';
 import ReactPaginate from 'react-paginate';
 import FormSearch from '../Search/FormSearch';
 function MainShop(props) {
+
     const [dataProduct, setdataProduct] = useState([])
     const [count, setCount] = useState('')
     const [numberPage, setnumberPage] = useState('')
@@ -16,6 +17,7 @@ function MainShop(props) {
     const [brandId, setbrandId] = useState('')
     const [keyword, setkeyword] = useState('')
     useEffect(() => {
+
       
          loadProduct(limitPage, sortName, sortPrice, offset, categoryId,keyword)
     
@@ -24,7 +26,9 @@ function MainShop(props) {
         setcategoryId(props.categoryId)
         setbrandId(props.brandId)
         let fetchCategory = async () => {
+
             let arrData = await getAllProductUser({
+
                 sortPrice: sortPrice,
                 sortName: sortName,
                 limit: limitPage,
@@ -39,9 +43,13 @@ function MainShop(props) {
             }
         }
         fetchCategory()
+
     }, [props.categoryId, props.brandId])
+
+
     let loadProduct = async (limitPage, sortName, sortPrice, offset, categoryId,keyword) => {
         let arrData = await getAllProductUser({
+
             sortPrice: sortPrice,
             sortName: sortName,
             limit: limitPage,
@@ -49,6 +57,7 @@ function MainShop(props) {
             categoryId: categoryId,
             brandId: brandId,
             keyword:keyword
+
         })
         if (arrData && arrData.errCode === 0) {
             setdataProduct(arrData.data)
@@ -56,6 +65,7 @@ function MainShop(props) {
         }
     }
     let handleSelectLimitPage = async (event) => {
+
          setlimitPage(event.target.value)
          loadProduct(event.target.value, sortName, sortPrice, offset, categoryId,keyword)
     }
@@ -64,11 +74,14 @@ function MainShop(props) {
         loadProduct(limitPage, sortName, sortPrice, number.selected * limitPage, categoryId,keyword)
         setoffset(number.selected * limitPage)
         props.myRef.current.scrollIntoView()
+
     }
     let handleSelectSort = async (event) => {
         let value = +event.target.value
+
         if (value === 1) {
             loadProduct(limitPage, '', '', offset, categoryId,keyword)
+
         }
         else if (value === 2) {
             loadProduct(limitPage, '', true, offset, categoryId,keyword)
@@ -125,6 +138,8 @@ function MainShop(props) {
                             )
                         })
                     }
+
+
                 </div>
             </div>
             <ReactPaginate
@@ -147,4 +162,5 @@ function MainShop(props) {
         </div>
     );
 }
+
 export default MainShop;
