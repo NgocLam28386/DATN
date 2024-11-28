@@ -17,6 +17,9 @@ const Adduser = (props) => {
     const [isChangeDate, setisChangeDate] = useState(false)
     const { id } = useParams();
 
+    const [inputValues, setInputValues] = useState({
+        email: '', password: '', firstName: '', lastName: '', address: '', phonenumber: '', genderId: '', roleId: '', id: '', dob: ''
+    });
 
     let setStateUser = (data) => {
         setInputValues({

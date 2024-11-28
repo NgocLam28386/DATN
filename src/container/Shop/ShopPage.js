@@ -54,8 +54,8 @@ function ShopPage(props) {
                             </div>
                         </div>
                     </div>
-                    {/* <Pagination amountPage={3}
-                        myFunction={{ changePage: handleChangePage, changePerPage: handleChangePage }}></Pagination> */}
+                    <Pagination amountPage={3}
+                        myFunction={{ changePage: handleChangePage, changePerPage: handleChangePage }}></Pagination>
                 </div>
 
             </section>
