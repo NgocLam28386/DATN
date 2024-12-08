@@ -9,7 +9,6 @@ function dynamicSort(property) {
         property = property.substr(1);
     }
     return function (a, b) {
-        /// sap xep tang dan
         var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
         return result * sortOrder;
     }
@@ -19,9 +18,6 @@ function dynamicSortMultiple() {
     var props = arguments;
     return function (obj1, obj2) {
         var i = 0, result = 0, numberOfProperties = props.length;
-        /* try getting a different result from 0 (equal)
-         * as long as we have extra properties to compare
-         */
         while (result === 0 && i < numberOfProperties) {
             result = dynamicSort(props[i])(obj1, obj2);
             i++;
@@ -33,57 +29,80 @@ function dynamicSortMultiple() {
 let createNewProduct = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.categoryId || !data.brandId || !data.image || !data.nameDetail) {
+            if (!data.categoryId || !data.image || !data.nameDetail) {
                 resolve({
                     errCode: 1,
-                    errMessage: 'Missing required parameter!'
-                })
+                    errMessage: 'Missing required parameter!',
+                });
             } else {
-                let product = await db.Product.create({
-                    name: data.name,
-                    contentHTML: data.contentHTML,
-                    contentMarkdown: data.contentMarkdown,
-                    statusId: 'S1',
-                    categoryId: data.categoryId,
-                    madeby: data.madeby,
-                    material: data.material,
-                    brandId: data.brandId
-                })
-                if (product) {
-                    let productdetail = await db.ProductDetail.create({
-                        productId: product.id,
+                try {
+                    let product = await db.Product.create({
+                        name: data.name,
+                        contentHTML: data.contentHTML,
+                        contentMarkdown: data.contentMarkdown,
+                        statusId: 'S1',
+                        categoryId: data.categoryId,
+                        material: data.material,
+                    });
 
-                        description: data.description,
+                    if (product) {
+                        try {
+                            let productdetail = await db.ProductDetail.create({
+                                productId: product.id,
+                                description: data.description,
+                                originalPrice: data.originalPrice,
+                                discountPrice: data.discountPrice,
+                                nameDetail: data.nameDetail,
+                            });
 
-                        originalPrice: data.originalPrice,
-                        discountPrice: data.discountPrice,
-                        nameDetail: data.nameDetail
-                    })
-                    if (productdetail) {
-                        await db.ProductImage.create({
+                            if (productdetail) {
+                                await db.ProductImage.create({
+                                    productdetailId: productdetail.id,
+                                    image: data.image,
+                                });
 
-                            productdetailId: productdetail.id,
-                            image: data.image
-                        })
-                        await db.ProductDetailSize.create({
-                            productdetailId: productdetail.id,
-                            width: data.width,
-                            height: data.height,
-                            sizeId: data.sizeId,
-                            weight: data.weight
-                        })
+                                await db.ProductDetailSize.create({
+                                    productdetailId: productdetail.id,
+                                    width: data.width,
+                                    height: data.height,
+                                    sizeId: data.sizeId,
+                                    weight: data.weight,
+                                });
+                            }
+                        } catch (error) {
+                            console.error("Error in ProductDetail:", error);
+                            reject({
+                                errCode: 500,
+                                errMessage: `ProductDetail creation failed: ${error.message || error}`,
+                            });
+                            return;
+                        }
                     }
+                } catch (error) {
+                    console.error("Error in Product creation:", error);
+                    reject({
+                        errCode: 500,
+                        errMessage: `Product creation failed: ${error.message || error}`,
+                    });
+                    return;
                 }
+
                 resolve({
                     errCode: 0,
-                    errMessage: 'ok'
-                })
+                    errMessage: 'ok',
+                });
             }
         } catch (error) {
-            reject(error)
+            console.error("General error:", error);
+            reject({
+                errCode: 500,
+                errMessage: `Server error: ${error.message || error}`,
+            });
         }
-    })
-}
+    });
+};
+
+
 let getAllProductAdmin = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -343,7 +362,7 @@ let getDetailProductById = (id) => {
 let updateProduct = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.id || !data.categoryId || !data.brandId) {
+            if (!data.id || !data.categoryId) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing required parameter!'
@@ -356,8 +375,6 @@ let updateProduct = (data) => {
                 if (product) {
                     product.name = data.name;
                     product.material = data.material;
-                    product.madeby = data.madeby;
-                    product.brandId = data.brandId;
                     product.categoryId = data.categoryId;
                     product.contentMarkdown = data.contentMarkdown;
                     product.contentHTML = data.contentHTML;
@@ -375,6 +392,7 @@ let updateProduct = (data) => {
         }
     })
 }
+
 let getAllProductDetailById = (data) => {
     return new Promise(async (resolve, reject) => {
         try {

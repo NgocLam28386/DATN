@@ -1,14 +1,17 @@
 {
-  "name": "PadoraAPI",
+  "name": "ecomapi",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.jsx",
+  "description": "backend nodejs ecom",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec ./node_modules/.bin/babel-node src/server.js"
   },
-  "keywords": [],
-  "author": "huyenlk19",
+  "keywords": [
+    "fullstack",
+    "ecom"
+  ],
+  "author": "bingo2706",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

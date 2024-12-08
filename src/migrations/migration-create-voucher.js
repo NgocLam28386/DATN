@@ -23,6 +23,9 @@ module.exports = {
             amount: {
                 type: Sequelize.INTEGER
             },
+            codeVoucher: {
+                type: Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
