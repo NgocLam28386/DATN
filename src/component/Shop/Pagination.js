@@ -1,4 +1,5 @@
 import React from 'react';
+
 function Pagination(props) {
     var item = [];
     for (var i = 0; i < props.amountPage; i++) {
@@ -23,4 +24,5 @@ function Pagination(props) {
     );
    
 }
+
 export default Pagination;

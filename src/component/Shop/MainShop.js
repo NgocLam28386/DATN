@@ -120,7 +120,7 @@ function MainShop(props) {
                         <option value={18}>Hiển thị 18</option>
                     </select>
                     <div style={{display:'inline-block',marginLeft:'10px',width:'300px'}}>
-                    <FormSearch title={"tên tên quần áo"} handleOnchange={handleOnchangeSearch} handleSearch={handleSearch} />
+                    <FormSearch title={"tên"} handleOnchange={handleOnchangeSearch} handleSearch={handleSearch} />
                     </div>
                     
                     

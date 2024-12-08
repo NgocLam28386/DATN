@@ -37,7 +37,7 @@ function VoucherItemSmall(props) {
                 <div className="box-content-right">
                     <span className="name-voucher">Giảm {props.typeVoucher}</span>
                     <a style={{ cursor: 'pointer' }} onClick={() => handleClickApplyVoucher()} className="use-voucher">Dùng ngay</a>
-                    <span className="max-value-voucher">Giảm tối đa {props.maxValue}</span>
+                    <span className="max-value-voucher">Đơn tối thiểu {props.maxValue}</span>
                     <div className="box-percent">
                         <div className="wrap-percent">
                             <div style={{ width: `${props.usedAmount}%` }} className="percent"></div>

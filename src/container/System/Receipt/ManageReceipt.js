@@ -94,7 +94,7 @@ const ManageReceipt = () => {
                                 <tr>
                                     <th>STT</th>
                                     <th>Ngày nhập hàng</th>
-                                    <th>Tên nhà cung cấp</th>
+                                    <th> Tên kho hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Tên nhân viên</th>
                                     <th>Thao tác</th>

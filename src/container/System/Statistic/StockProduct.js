@@ -95,7 +95,6 @@ const StockProduct = () => {
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Danh mục</th>
-                                    <th>nhãn hàng</th>
                                     <th>Chất liệu</th>
                                     <th>Số lượng tồn</th>
                                 </tr>
@@ -111,7 +110,6 @@ const StockProduct = () => {
                                                 <td>{index}</td>
                                                 <td>{name}</td>
                                                 <td>{item.productdData.categoryData.value}</td>
-                                                <td>{item.productdData.brandData.value}</td>
                                                 <td>{item.productdData.material}</td>
                                                 <td>{item.stock}</td>
                                             </tr>

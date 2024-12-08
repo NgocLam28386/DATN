@@ -16,16 +16,13 @@ import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 const AddProduct = (props) => {
     const mdParser = new MarkdownIt();
-    const { data: dataBrand } = useFetchAllcode("BRAND");
     const { data: dataCategory } = useFetchAllcode("CATEGORY");
     const { data: dataSize } = useFetchAllcode("SIZE");
     const [inputValues, setInputValues] = useState({
-        brandId: "",
         categoryId: "",
         name: "",
         shortdescription: "",
         description: "",
-        madeby: "",
         material: "",
         width: "",
         height: "",
@@ -42,9 +39,6 @@ const AddProduct = (props) => {
     });
 
     if (
-        dataBrand &&
-        dataBrand.length > 0 &&
-        inputValues.brandId === "" &&
         dataCategory &&
         dataCategory.length > 0 &&
         inputValues.categoryId === "" &&
@@ -54,7 +48,6 @@ const AddProduct = (props) => {
     ) {
         setInputValues({
             ...inputValues,
-            ["brandId"]: dataBrand[0].code,
             ["categoryId"]: dataCategory[0].code,
             ["sizeId"]: dataSize[0].code,
         });
@@ -90,9 +83,7 @@ const AddProduct = (props) => {
             name: inputValues.name,
             description: inputValues.description,
             categoryId: inputValues.categoryId,
-            madeby: inputValues.madeby,
             material: inputValues.material,
-            brandId: inputValues.brandId,
             width: inputValues.width,
             height: inputValues.height,
             sizeId: inputValues.sizeId,
@@ -112,9 +103,7 @@ const AddProduct = (props) => {
                 ["name"]: "",
                 ["shortdescription"]: "",
                 ["categoryId"]: "",
-                ["madeby"]: "",
                 ["material"]: "",
-                ["brandId"]: "",
                 ["height"]: "",
                 ["width"]: "",
                 ["sizeId"]: "",
@@ -165,30 +154,19 @@ const AddProduct = (props) => {
                                 />
                             </div>
                             <div className="form-group col-md-4">
-                                <label htmlFor="inputPassword4">
-                                    Chất liệu
-                                </label>
-                                <input
-                                    type="text"
+                                <label htmlFor="inputMaterial">Chất liệu</label>
+                                <select
                                     value={inputValues.material}
                                     name="material"
                                     onChange={(event) => handleOnChange(event)}
                                     className="form-control"
-                                    id="inputPassword4"
-                                />
-                            </div>
-                            <div className="form-group col-md-4">
-                                <label htmlFor="inputPassword4">
-                                    Được làm bởi
-                                </label>
-                                <input
-                                    type="text"
-                                    value={inputValues.madeby}
-                                    name="madeby"
-                                    onChange={(event) => handleOnChange(event)}
-                                    className="form-control"
-                                    id="inputPassword4"
-                                />
+                                    id="inputMaterial"
+                                >
+                                    <option value="">-- Chọn chất liệu --</option>
+                                    <option value="Bạc">Bạc</option>
+                                    <option value="Vàng">Vàng</option>
+                                    <option value="Vàng Hồng">Vàng Hồng</option>
+                                </select>
                             </div>
                         </div>
                         <div className="form-row">
@@ -206,31 +184,6 @@ const AddProduct = (props) => {
                                     {dataCategory &&
                                         dataCategory.length > 0 &&
                                         dataCategory.map((item, index) => {
-                                            return (
-                                                <option
-                                                    key={index}
-                                                    value={item.code}
-                                                >
-                                                    {item.value}
-                                                </option>
-                                            );
-                                        })}
-                                </select>
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label htmlFor="inputPassword4">
-                                    Nhãn hàng
-                                </label>
-                                <select
-                                    value={inputValues.brandId}
-                                    name="brandId"
-                                    onChange={(event) => handleOnChange(event)}
-                                    id="inputState"
-                                    className="form-control"
-                                >
-                                    {dataBrand &&
-                                        dataBrand.length > 0 &&
-                                        dataBrand.map((item, index) => {
                                             return (
                                                 <option
                                                     key={index}
@@ -268,19 +221,24 @@ const AddProduct = (props) => {
                                 />
                             </div>
                             <div className="form-group col-md-4">
-                                <label htmlFor="inputEmail4">Chất Liệu</label>
-                                <input
-                                    type="text"
-                                    value={inputValues.width}
-                                    name="width"
+                                <label htmlFor="inputMaterial">Chất Liệu</label>
+                                <select
+                                    value={inputValues.material}
+                                    name="material"
                                     onChange={(event) => handleOnChange(event)}
                                     className="form-control"
-                                    id="inputEmail4"
-                                />
+                                    id="inputMaterial"
+                                >
+                                    <option value="">-- Chọn chất liệu --</option>
+                                    <option value="Bạc">Bạc</option>
+                                    <option value="Vàng">Vàng</option>
+                                    <option value="Vàng Hồng">Vàng Hồng</option>
+                                </select>
                             </div>
+
                             <div className="form-group col-md-4">
                                 <label htmlFor="inputPassword4">
-                                Màu
+                                    Màu
                                 </label>
                                 <input
                                     type="text"

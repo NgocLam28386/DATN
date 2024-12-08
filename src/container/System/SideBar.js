@@ -50,17 +50,6 @@ const SideBar = () => {
                                         <Link to={'/admin/add-category'} className="nav-link" >Thêm danh mục</Link>
                                     </nav>
                                 </div>
-                                <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseLayouts">
-                                    <div className="sb-nav-link-icon"><i className="far fa-copyright"></i></div>
-                                    Quản lý nhãn hàng
-                                    <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
-                                </a>
-                                <div className="collapse" id="collapseBrand" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                    <nav className="sb-sidenav-menu-nested nav">
-                                        <Link to={'/admin/list-brand'} className="nav-link" >Danh sách nhãn hàng</Link>
-                                        <Link to={'/admin/add-brand'} className="nav-link" >Thêm nhãn hàng</Link>
-                                    </nav>
-                                </div>
                                 <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseLayouts">
                                     <div className="sb-nav-link-icon"><i className="fas fa-tshirt"></i></div>
                                     Quản lý sản phẩm
@@ -75,13 +64,13 @@ const SideBar = () => {
 
                                 <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBanner" aria-expanded="false" aria-controls="collapseLayouts">
                                     <div className="sb-nav-link-icon"><i className="fab fa-adversal"></i></div>
-                                    Quản lý băng rôn
+                                    Quản lý banner
                                     <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
                                 </a>
                                 <div className="collapse" id="collapseBanner" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav className="sb-sidenav-menu-nested nav">
-                                        <Link to={'/admin/list-banner'} className="nav-link" >Danh sách băng rôn</Link>
-                                        <Link to={'/admin/add-banner'} className="nav-link" >Thêm băng rôn</Link>
+                                        <Link to={'/admin/list-banner'} className="nav-link" >Danh sách banner</Link>
+                                        <Link to={'/admin/add-banner'} className="nav-link" >Thêm banner</Link>
                                     </nav>
                                 </div>
                                 <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSubject" aria-expanded="false" aria-controls="collapseLayouts">
@@ -132,18 +121,6 @@ const SideBar = () => {
                                 </div>
                             </>
                         }
-
-                        <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSupplier" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div className="sb-nav-link-icon"><i class="fa-solid fa-person-military-pointing"></i></div>
-                            Quản lý NCC
-                            <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
-                        </a>
-                        <div className="collapse" id="collapseSupplier" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav className="sb-sidenav-menu-nested nav">
-                                <Link to={'/admin/list-supplier'} className="nav-link" >Danh sách NCC</Link>
-                                <Link to={'/admin/add-supplier'} className="nav-link" >Thêm nhà cung cấp</Link>
-                            </nav>
-                        </div>
                         <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReceipt" aria-expanded="false" aria-controls="collapseLayouts">
                             <div className="sb-nav-link-icon"><i class="fa-solid fa-file-import"></i></div>
                             Quản lý nhập hàng
@@ -166,17 +143,7 @@ const SideBar = () => {
 
                             </nav>
                         </div>
-                        <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrder" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div className="sb-nav-link-icon"><i class="fa-brands fa-facebook-messenger"></i></div>
-                            Quản lý tin nhắn
-                            <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
-                        </a>
-                        <div className="collapse" id="collapseOrder" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav className="sb-sidenav-menu-nested nav">
-                                <Link to={'/admin/chat'} className="nav-link" >Messenger</Link>
 
-                            </nav>
-                        </div>
                         {user && user.roleId === "R1" &&
                             <>
                                 <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStatistic" aria-expanded="false" aria-controls="collapseLayouts">

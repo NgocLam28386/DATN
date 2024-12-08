@@ -105,7 +105,7 @@ const AddBanner = (props) => {
     };
     return (
         <div className="container-fluid px-4">
-            <h1 className="mt-4">Quản lý băng rôn</h1>
+            <h1 className="mt-4">Quản lý banner</h1>
 
             <div className="card mb-4">
                 <div className="card-header">

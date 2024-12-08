@@ -16,8 +16,7 @@ const EditProduct = (props) => {
     const { data: dataCategory } = useFetchAllcode('CATEGORY')
 
     const [inputValues, setInputValues] = useState({
-        brandId: '', categoryId: '', name: '',contentHTML: '', contentMarkdown: '',
-        madeby: '', material: '',
+        categoryId: '', name: '', contentHTML: '', contentMarkdown: '',
     });
 
     useEffect(() => {
@@ -32,12 +31,10 @@ const EditProduct = (props) => {
     let setStateProduct = (data) => {
         setInputValues({
             ...inputValues,
-            ["brandId"]: data.brandId,
             ["categoryId"]: data.categoryId,
             ["name"]: data.name,
             ["contentMarkdown"]: data.contentMarkdown,
             ["contentHTML"]: data.contentHTML,
-            ["madeby"]: data.madeby,
             ["material"]: data.material,
         })
 
@@ -51,8 +48,6 @@ const EditProduct = (props) => {
         let res = await UpdateProductService({
             name: inputValues.name,
             material: inputValues.material,
-            madeby: inputValues.madeby,
-            brandId: inputValues.brandId,
             categoryId: inputValues.categoryId,
             contentHTML: inputValues.contentHTML,
             contentMarkdown: inputValues.contentMarkdown,
@@ -89,13 +84,21 @@ const EditProduct = (props) => {
                                 <input type="text" value={inputValues.name} name="name" onChange={(event) => handleOnChange(event)} className="form-control" id="inputEmail4" />
                             </div>
                             <div className="form-group col-md-4">
-                                <label htmlFor="inputPassword4">Chất liệu</label>
-                                <input type="text" value={inputValues.material} name="material" onChange={(event) => handleOnChange(event)} className="form-control" id="inputPassword4" />
+                                <label htmlFor="inputMaterial">Chất liệu</label>
+                                <select
+                                    value={inputValues.material}
+                                    name="material"
+                                    onChange={(event) => handleOnChange(event)}
+                                    className="form-control"
+                                    id="inputMaterial"
+                                >
+                                    <option value="">Chọn chất liệu</option>
+                                    <option value="bạc">Bạc</option>
+                                    <option value="vàng">Vàng</option>
+                                    <option value="vàng hồng">Vàng hồng</option>
+                                </select>
                             </div>
-                            <div className="form-group col-md-4">
-                                <label htmlFor="inputPassword4">Được làm bởi</label>
-                                <input type="text" value={inputValues.madeby} name="madeby" onChange={(event) => handleOnChange(event)} className="form-control" id="inputPassword4" />
-                            </div>
+
                         </div>
                         <div className="form-group">
                             <label htmlFor="inputAddress">Mô tả sản phẩm</label>
@@ -119,22 +122,7 @@ const EditProduct = (props) => {
                                     }
                                 </select>
                             </div>
-                            <div className="form-group col-md-6">
-                                <label htmlFor="inputPassword4">Nhãn hàng</label>
-                                <select value={inputValues.brandId} name="brandId" onChange={(event) => handleOnChange(event)} id="inputState" className="form-control">
-                                    {dataBrand && dataBrand.length > 0 &&
-                                        dataBrand.map((item, index) => {
-                                            return (
-                                                <option key={index} value={item.code}>{item.value}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
-                            </div>
-
                         </div>
-
-
                         <button onClick={() => handleSaveProduct()} type="button" className="btn btn-primary">Lưu thông tin</button>
                     </form>
                 </div>

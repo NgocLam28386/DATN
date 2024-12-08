@@ -406,7 +406,7 @@ function OrderHomePage(props) {
                         </div>
                         {activeTypePayment != 0 &&
                             <div className='box-payment'>
-                                <div onClick={() => setactiveTypeOnlPayment(1)} className={activeTypeOnlPayment === 1 ? 'box-type-payment activeOnl' : 'box-type-payment'}>Thanh toán PAYPAL</div>
+                                
                                 <div onClick={() => setactiveTypeOnlPayment(2)} className={activeTypeOnlPayment === 2 ? 'box-type-payment activeOnl' : 'box-type-payment'}>Thanh toán VNPAY</div>
                             </div>
                         }
@@ -451,4 +451,4 @@ function OrderHomePage(props) {
     );
 }
 
-export default OrderHomePage
+export default OrderHomePage;

@@ -84,30 +84,8 @@ function VnpayPaymentPage(props) {
                             <div className="col-md-12"><label className="labels">Ngân hàng</label><select value={inputValues.bankCode}  onChange={(event) => handleOnChange(event)} name="bankCode"  id="inputState" className="form-control">
                                 
                             <option value=''>  Không chọn </option>
-                            <option value='VNPAYQR'>  Ngân hàng VNPAYQR</option>
                             <option value='NCB'>  Ngân hàng NCB</option>
-                            <option value='SCB'>  Ngân hàng SCB</option>
-                            <option value='SACOMBANK'>  Ngân hàng SACOMBANK</option>
-                            <option value='EXIMBANK'>  Ngân hàng EXIMBANK</option>
-                            <option value='MSBANK'>  Ngân hàng MSBANK</option>
-                            <option value='NAMABANK'>  Ngân hàng NAMABANK</option>
-                            <option value='VISA'>  Ngân hàng VISA</option>
-                            <option value='VNMART'>  Ngân hàng VNMART</option>
-                            <option value='VIETINBANK'>  Ngân hàng VIETINBANK</option>
-                            <option value='VIETCOMBANK'>  Ngân hàng VIETCOMBANK</option>
-                            <option value='HDBANK'>  Ngân hàng HDBANK</option>
-                            <option value='DONGABANK'>  Ngân hàng Dong A</option>
-                            <option value='TPBANK'>  Ngân hàng Tp Bank</option>
-                            <option value='OJB'>  Ngân hàng OceanBank</option>
-                            <option value='BIDV'>  Ngân hàng BIDV</option>
-                            <option value='TECHCOMBANK'>  Ngân hàng Techcombank</option>
-                            <option value='VPBANK'>  Ngân hàng VPBank</option>
-                            <option value='AGRIBANK'>  Ngân hàng AGRIBANK</option>
-                            <option value='MBBANK'>  Ngân hàng MBBank</option>
-                            <option value='ACB'>  Ngân hàng ACB</option>
-                            <option value='OCB'>  Ngân hàng OCB</option>
-                            <option value='SHB'>  Ngân hàng SHB</option>
-                            <option value='IVB'>  Ngân hàng IVB</option>
+                            
                                 
                             </select></div>
                         </div>

@@ -115,7 +115,7 @@ const AddProductDetail = (props) => {
                                 />
                             </div>
                             <div className="form-group col-md-4">
-                                <label htmlFor="inputEmail4">Chiều rộng</label>
+                                <label htmlFor="inputEmail4">Chất Liệu</label>
                                 <input
                                     type="text"
                                     value={inputValues.width}
@@ -127,7 +127,7 @@ const AddProductDetail = (props) => {
                             </div>
                             <div className="form-group col-md-4">
                                 <label htmlFor="inputPassword4">
-                                    chiều dài
+                                Màu
                                 </label>
                                 <input
                                     type="text"

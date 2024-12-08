@@ -41,7 +41,31 @@ const ManageProductDetail = () => {
             setCount(Math.ceil(arrData.count / PAGINATION.pagerow))
         }
     }
+    let handleDeleteProductDetail = async (productdetailId) => {
+        let response = await DeleteProductDetailService({
+            data: {
+                id: productdetailId
+            }
+        })
+        if (response && response.errCode === 0) {
+            toast.success("Xóa chi tiết sản phẩm thành công !")
 
+            let arrData = await getAllProductDetailByIdService({
+
+                id: id,
+                limit: PAGINATION.pagerow,
+                offset: numberPage * PAGINATION.pagerow
+
+            })
+            if (arrData && arrData.errCode === 0) {
+                setdataProductDetail(arrData.data)
+                setCount(Math.ceil(arrData.count / PAGINATION.pagerow))
+            }
+
+        } else {
+            toast.error("Xóa sản phẩm thất bại")
+        }
+    }
     let handleChangePage = async (number) => {
         setnumberPage(number.selected)
         let arrData = await getAllProductDetailByIdService({

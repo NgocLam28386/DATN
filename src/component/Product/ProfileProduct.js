@@ -8,7 +8,7 @@ function ProfileProduct(props) {
                 <tbody>
                     <tr>
                         <td>
-                            <h5>Chiều rộng</h5>
+                            <h5>Chất Liệu</h5>
                         </td>
                         <td>
                             <h5>{data.width}</h5>
@@ -16,7 +16,7 @@ function ProfileProduct(props) {
                     </tr>
                     <tr>
                         <td>
-                            <h5>Chiều dài</h5>
+                            <h5>Màu</h5>
                         </td>
                         <td>
                             <h5>{data.height}</h5>

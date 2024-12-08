@@ -154,9 +154,7 @@ const ManageProduct = () => {
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Danh mục</th>
-                                    <th>Nhãn hàng</th>
                                     <th>Chất liệu</th>
-                                    <th>Được làm bởi</th>
                                     <th>Lượt xem</th>
                                     <th>Trạng thái</th>
                                     <th>Thao tác</th>
@@ -171,9 +169,7 @@ const ManageProduct = () => {
                                                 <td>{index + 1}</td>
                                                 <td>{item.name}</td>
                                                 <td>{item.categoryData.value}</td>
-                                                <td>{item.brandData.value}</td>
                                                 <td>{item.material}</td>
-                                                <td>{item.madeby}</td>
                                                 <td>{item.view ? item.view : 0}</td>
                                                 <td>{item.statusData.value}</td>
                                                 <td style={{ width: '12%' }}>
@@ -185,18 +181,11 @@ const ManageProduct = () => {
                                                         <span onClick={() => handleBanProduct(item.id)} style={{ color: '#0E6DFE', cursor: 'pointer' }} >Ban</span>
                                                         : <span onClick={() => handleActiveProduct(item.id)} style={{ color: '#0E6DFE', cursor: 'pointer' }}   >Active</span>
                                                     }
-
-
-
                                                 </td>
                                             </tr>
                                         )
                                     })
                                 }
-
-
-
-
                             </tbody>
                         </table>
                     </div>

@@ -59,7 +59,7 @@ const Otp = (props) => {
 
     };
     let submitOTP = async () => {
-        const code = (inputValues.so1 + inputValues.so2 + inputValues.so3 + inputValues.so4 + inputValues.so5 + inputValues.so6);
+        const code = +(inputValues.so1 + inputValues.so2 + inputValues.so3 + inputValues.so4 + inputValues.so5 + inputValues.so6);
 
         await window.confirmationResult.confirm(code).then((result) => {
             // User signed in successfully.

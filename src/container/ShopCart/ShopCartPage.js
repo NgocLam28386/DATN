@@ -63,7 +63,18 @@ function ShopCartPage(props) {
         setisOpenModal(true)
 
     }
-
+    let handleOpenAddressUserModal = async () => {
+        if (user && user.id) {
+            let res = await getAllAddressUserByUserIdService(user.id)
+            if (res && res.errCode === 0 && res.data.length > 0) {
+                history.push(`/order/${user.id}`);
+            } else {
+                setisOpenModalAddressUser(true)
+            }
+        } else {
+            toast.error("Hãy đăng nhập để mua hàng")
+        }
+    }
     let totalPriceDiscount = (price, discount) => {
 
         if (discount.voucherData.typeVoucherOfVoucherData.typeVoucher === "percent") {

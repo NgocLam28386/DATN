@@ -71,7 +71,7 @@ const Turnover = (props) => {
                     <form>
                         <div className="form-row">
                             <div className="form-group col-md-2">
-                                <label htmlFor="inputZip">Loại thống kê.</label>
+                                <label htmlFor="inputZip">Loại thống kê</label>
                                 <select value={type} name="type" onChange={(event) => settype(event.target.value)} id="inputState" className="form-control">
                                     <option value="day">Ngày</option>
                                     <option value="month">Tháng</option>
@@ -151,7 +151,7 @@ const Turnover = (props) => {
                                     <th>Ngày cập nhật</th>
                                     <th>Loại ship</th>
                                     <th>Mã voucher</th>
-                                    <th>Hình thức</th>
+                                    <th>Hình thức thanh toán</th>
                                     <th>Trạng thái</th>
                                     <th>Tổng tiền</th>
                                     <th>Thao tác</th>

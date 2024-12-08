@@ -108,19 +108,19 @@ const ManageBanner = () => {
                 element.image = ""
             })
            
-           await CommonUtils.exportExcel(res.data,"Danh sách băng rôn","ListBanner")
+           await CommonUtils.exportExcel(res.data,"Danh sách banner","ListBanner")
         }
        
     }
     return (
         <div className="container-fluid px-4">
-            <h1 className="mt-4">Quản lý băng rôn</h1>
+            <h1 className="mt-4">Quản lý banner</h1>
 
 
             <div className="card mb-4">
                 <div className="card-header">
                     <i className="fas fa-table me-1" />
-                    Danh sách băng rôn
+                    Danh sách banner
                 </div>
                 <div className="card-body">
                 
